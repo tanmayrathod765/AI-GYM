@@ -7,7 +7,28 @@ import base64
 def load_css(file_path):
     if os.path.exists(file_path):
         with open(file_path) as f:
-            st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
+                        st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
+                        # Also inject the small runtime script that toggles 'in-view' classes
+                        # for elements with the 'fade-in' class so animations run smoothly.
+                        components.html(
+                                """
+                                <script>
+                                (function(){
+                                    try{
+                                        const observer = new IntersectionObserver((entries)=>{
+                                            entries.forEach(e=>{
+                                                if(e.isIntersecting){ e.target.classList.add('in-view'); }
+                                            })
+                                        },{threshold:0.08});
+                                        document.querySelectorAll('.fade-in').forEach(el=>observer.observe(el));
+                                        // expose a light toggle for metrics animation
+                                        window.__st_run_metric_pop = function(){ document.querySelectorAll('.metric-pop').forEach((el,i)=>setTimeout(()=>el.classList.add('ready'), i*120)); };
+                                    }catch(_){/* ignore for restrictive iframes */}
+                                })();
+                                </script>
+                                """,
+                                height=0,
+                        )
 
 
 def inject_local_font(font_path, font_name):

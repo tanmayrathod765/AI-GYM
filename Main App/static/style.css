@@ -179,3 +179,81 @@ div[role="menuitem"] {
   background-color: #181D2A !important;
   color: #fff;
 }
+
+/* =========================================================
+   THEMED HERO + ACCENTS
+========================================================= */
+
+:root{
+  --bg-0: #06070a;
+  --bg-1: #0b1220;
+  --panel: rgba(255,255,255,0.03);
+  --glass: rgba(255,255,255,0.04);
+  --accent: #06b6d4; /* teal */
+  --muted: rgba(255,255,255,0.6);
+}
+
+body::before{
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: radial-gradient(600px 400px at 10% 10%, rgba(6,182,212,0.06), transparent 10%), radial-gradient(500px 300px at 90% 80%, rgba(255,184,108,0.03), transparent 15%);
+  z-index: 0;
+  pointer-events:none;
+}
+
+.coach-hero{
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+  padding:28px;
+  background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+  border: 1px solid rgba(255,255,255,0.04);
+  box-shadow: 0 6px 30px rgba(2,6,23,0.6);
+  margin-bottom: 18px;
+}
+
+.coach-eyebrow{
+  color: var(--accent);
+  font-weight:700;
+  letter-spacing:0.12em;
+  text-transform:uppercase;
+  font-size:0.85rem;
+}
+
+.coach-title{
+  font-size: clamp(1.6rem, 3.8vw, 2.6rem);
+  font-weight:800;
+  line-height:1.02;
+}
+
+.coach-title span{
+  color: var(--accent);
+}
+
+.coach-subtitle{ color:var(--muted); max-width:55ch }
+
+.coach-stats{ display:flex; gap:10px; margin-top:12px }
+.coach-stat{ background:var(--glass); padding:10px; border:1px solid rgba(255,255,255,0.02); flex:1 }
+.coach-stat strong{ display:block; font-size:1rem }
+.coach-stat span{ color:var(--muted); font-size:0.9rem }
+
+/* =========================================================
+   MICRO-ANIMATIONS
+========================================================= */
+
+.fade-in{ opacity:0; transform: translateY(8px); transition: all 520ms cubic-bezier(.2,.8,.2,1); }
+.fade-in.in-view{ opacity:1; transform:none }
+
+.metric-pop{ transform: translateY(8px); opacity:0; transition: transform .45s ease, opacity .45s ease }
+.metric-pop.ready{ transform:none; opacity:1 }
+
+/* subtle hover for panels */
+.panel-hover:hover{ transform: translateY(-6px); box-shadow: 0 12px 40px rgba(2,6,23,0.6); transition: all 320ms ease }
+
+/* buttons */
+button, .stButton button { background: linear-gradient(90deg, var(--accent), #ffb86b); color:#061018; border:none; padding:0.6rem 1rem; font-weight:700 }
+
+/* small responsive tweaks */
+@media (max-width:720px){ .block-container { padding: 28px 18px !important; } .coach-hero{ padding:18px } }
+
