@@ -11,7 +11,10 @@ from streamlit_webrtc import webrtc_streamer, WebRtcMode
 from services.vision.exercise_video_processor import VideoProcessorClass
 from services.tracking.metrics import sync_metrics_update
 from services.persistence.exercise_repository import get_users_exercises
-from groq import Groq
+try:
+    from groq import Groq
+except Exception:
+    Groq = None
 from services.coaching.llm import LLMCoach
 from services.coaching.tts import TextToSpeech
 from services.coaching.voice_pipeline import VoicePipeline, autoplay_audio
@@ -41,8 +44,19 @@ def main():
 
             if not api_key and hasattr(st, "secrets") and "GROQ_API_KEY" in st.secrets:
                 api_key = st.secrets["GROQ_API_KEY"]
-            
+
+            if not api_key:
+                st.error(
+                    "GROQ_API_KEY is required for voice coaching. Set it in your environment or Streamlit secrets."
+                )
+                st.stop()
+
+            if Groq is None:
+                st.error("The groq package is not installed in this environment.")
+                st.stop()
+
             groq_client = Groq(api_key=api_key)
+
             llm_coach = LLMCoach(groq_client)
             tts = TextToSpeech()
             st.session_state.voice_pipeline = VoicePipeline(llm_coach, tts)
