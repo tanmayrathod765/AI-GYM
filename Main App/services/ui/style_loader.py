@@ -115,3 +115,19 @@ def inject_webrtc_styles():
         """,
         height=0,
     )
+        # Trigger metric animations after a short delay to ensure DOM is ready
+        components.html(
+                """
+                <script>
+                (function(){
+                    try{
+                        setTimeout(()=>{
+                            if(window.__st_run_metric_pop) window.__st_run_metric_pop();
+                            document.documentElement.classList.add('app-ready');
+                        }, 600);
+                    }catch(e){console.warn('anim init',e)}
+                })();
+                </script>
+                """,
+                height=0,
+        )

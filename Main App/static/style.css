@@ -257,3 +257,48 @@ button, .stButton button { background: linear-gradient(90deg, var(--accent), #ff
 /* small responsive tweaks */
 @media (max-width:720px){ .block-container { padding: 28px 18px !important; } .coach-hero{ padding:18px } }
 
+/* =========================================================
+  FULL THEME: Sportive Pro
+  - Dark, contrasty, glass surfaces
+  - Neon accent, motion system, improved spacing
+  - Sidebar compact navigation and pill buttons
+========================================================= */
+
+/* general smoothing */
+* { box-sizing: border-box; -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale }
+
+.stApp .block-container{ position:relative; z-index:2 }
+
+/* floating panels */
+.glass-panel{ background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01)); border:1px solid rgba(255,255,255,0.03); padding:14px; border-radius:12px }
+
+/* sidebar nav links */
+[data-testid="stSidebar"] .stSidebarNavLink{ padding:10px 12px !important; border-radius:8px; margin-bottom:6px }
+[data-testid="stSidebar"] .stSidebarNavLink:hover{ background: linear-gradient(90deg, rgba(6,182,212,0.06), rgba(255,184,108,0.03)); transform: translateX(4px); }
+
+/* pill controls */
+.pill { display:inline-block; padding:6px 10px; border-radius:999px; background:rgba(255,255,255,0.02); border:1px solid rgba(255,255,255,0.03); font-weight:700 }
+.pill.accent{ background: linear-gradient(90deg,var(--accent),#ffb86b); color:#061018 }
+
+/* video / canvas frame styling */
+.stVideoFrame, video { border-radius:12px; overflow:hidden; border:1px solid rgba(255,255,255,0.04); box-shadow: 0 10px 30px rgba(2,6,23,0.6) }
+
+/* big callout */
+.coach-callout{ display:flex; gap:14px; align-items:center; background:linear-gradient(90deg, rgba(6,182,212,0.04), rgba(255,184,108,0.02)); border-radius:10px; padding:12px }
+.coach-callout .lead{ font-size:1.1rem; font-weight:700 }
+
+/* animated subtle background shapes */
+.bg-shape{ position:absolute; width:420px; height:420px; right:-120px; top:-80px; background: radial-gradient(circle at 30% 30%, rgba(6,182,212,0.06), transparent 30%); filter: blur(40px); z-index:0 }
+
+/* metric counters — animated number */
+.metric-num{ font-variant-numeric: tabular-nums; font-weight:800; font-size:1.6rem }
+.metric-num[data-animate="true"]{ transition: transform .6s cubic-bezier(.2,.9,.2,1); transform-origin:center bottom }
+.metric-num[data-animate="true"].animate{ transform: translateY(-6px) }
+
+/* subtle footer */
+.app-footer{ opacity:0.7; font-size:0.9rem; margin-top:26px }
+
+/* final responsive adjustments */
+@media (max-width:640px){ .metrics-grid{ grid-template-columns: 1fr 1fr } .coach-hero{ gap:10px } }
+
+
